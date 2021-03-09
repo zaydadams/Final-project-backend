@@ -23,6 +23,16 @@ def init_sqlite_db():
     conn.execute('CREATE TABLE IF NOT EXISTS blogs (id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT, title TEXT, year TEXT, description TEXT)')
     print("Table created successfully")
 
+    conn.execute('CREATE TABLE IF NOT EXISTS admin_blogs (id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT, title TEXT, year TEXT, description TEXT)')
+    print("Table created successfully")
+    conn.commit()
+    conn.execute("INSERT INTO admin_blogs(image, title, year, description) VALUES ('image','title','year','description')")
+
+
+    cursor.execute("SELECT * FROM admin_blogs")
+    print(cursor.fetchall())
+
+
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM blogs")
 
