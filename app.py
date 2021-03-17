@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask import jsonify
 from flask_cors import CORS
 
-
+#Create Database and tables
 def init_sqlite_db():
 
     conn = sqlite3.connect('database.db')
@@ -54,6 +54,8 @@ def dict_factory(cursor, row):
 
     return d
 
+#Register a new user
+
 @app.route('/')
 @app.route('/register/', methods=['POST'])
 def add_new_record():
@@ -78,6 +80,7 @@ def add_new_record():
         finally:
             return {'msg': msg}
 
+#Get data from the database of the registered user
 
 @app.route('/login/', methods=["GET"])
 def show_userlogin():
@@ -92,6 +95,7 @@ def show_userlogin():
         print("There was an error fetching results from the database: " + str(e))
     return jsonify(records)
 
+#login to existing user
 
 @app.route('/loggedIn/', methods=['GET'])
 def loggedIn():
@@ -113,6 +117,7 @@ def loggedIn():
         finally:
             return {'msg': msg}
 
+#delete client, function is not connected to frontend
 
 @app.route('/delete-clients/<int:clients_id>/', methods=["GET"])
 def delete_clients(client_id):
@@ -133,6 +138,7 @@ def delete_clients(client_id):
 
 
 
+#Display post stored in the database
 
 @app.route('/show-posts/', methods=["GET"])
 def show_posts():
@@ -146,7 +152,8 @@ def show_posts():
         con.rollback()
         print("There was an error fetching results from the database: " + str(e))
     return jsonify(records)
-#addpost
+
+#add post from form to database
 
 @app.route('/')
 @app.route('/addP/', methods=['POST'])
